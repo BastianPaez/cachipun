@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded',function(){
     const iniciar = document.querySelector("#iniciar");
     const jugadas = document.querySelectorAll('#jugadas button');
     const batalla = document.querySelector('#batalla');
-    let cantidadJuegos = 0;
+    let contadorJuegos = 0;
+    let contadorVictorias = [0,0];
+    let contadorDerrotas = [0,0];
     let jugadaJugadores = ["",""]
 
 
@@ -39,11 +41,10 @@ document.addEventListener('DOMContentLoaded',function(){
             }
         }
         else {
-            cantidadJuegos = parseInt(inputCantidad.value);
             removerError();
             btnJuegoEstado();
             btnIniciarEstado(inputCantidad);
-
+            contadorJugadas();
         }
     }
     
@@ -78,20 +79,34 @@ document.addEventListener('DOMContentLoaded',function(){
         if (btn[1].classList.contains('btn-success')){
             btn[1].classList.remove('btn-success');
             btn[1].classList.add('btn-danger');
-            btn[1].textContent = 'Detener';
+            btn[1].textContent = 'Reiniciar';
             inputCantidad.disabled = true;
             iniciarJugadas(btn);
         }else{
-            const img =jugador.querySelector("img")
-            img.src = `assets/img/jugador.png`;
+            reiniciarImg();
             btn[1].classList.remove('btn-danger');
             btn[1].classList.add('btn-success');
             btn[1].textContent = 'Iniciar';
             inputCantidad.disabled = false;
             inputCantidad.value = "";
-            cantidadJuegos=0;
+            contadorJuegos=0;
             iniciarJugadas(btn);
+            reiniciarMarcadores();
         }
+    }
+
+    // obtenemos el numero de juegos
+    const contadorJugadas = () =>{
+        let inputCantidad = juego.querySelector('input').value;
+        contadorJuegos = inputCantidad;
+    }
+
+    // volvemos las img de los jugadores a como son por defecto
+    const reiniciarImg = () =>{
+        const imgJugador =jugador.querySelector("img")
+        const imgPc =jugadorPc.querySelector("img")
+        imgJugador.src = `assets/img/jugador.png`;
+        imgPc.src = `assets/img/pc.png`;
     }
 
     //activa los botones para elegir pidra papel o tijera
@@ -199,6 +214,7 @@ document.addEventListener('DOMContentLoaded',function(){
         imgPc();
         if (jugadaJugadores[0] === jugadaJugadores[1]){
             console.log('empate');
+            disminuirContador();
         }else {
             switch (jugadaJugadores[0]){
                 case "piedra":
@@ -211,40 +227,85 @@ document.addEventListener('DOMContentLoaded',function(){
                     seleccionPapel();
                     break
             }
-            
+            disminuirContador();
+        }
+    }
+
+    // cada vez que juegues un turno se disminuira el contador
+    const disminuirContador= () =>{
+        let inputCantidad = juego.querySelector('input');
+        if (contadorJuegos > 0){
+            contadorJuegos--;
+            inputCantidad.value = contadorJuegos.toString();
         }
     }
     
     // seleccion de jugada logica
     const seleccionPiedra = () =>{
         if (jugadaJugadores[0] === "piedra" && jugadaJugadores[1]==="papel"){
+            victoriaPc();
             console.log('perdiste');
         }
         if (jugadaJugadores[0] === "piedra" && jugadaJugadores[1]==="tijera"){
+            victoriaJugador();
             console.log('ganaste');
         }
     }
     const seleccionTijera = () =>{
         if (jugadaJugadores[0] === "tijera" && jugadaJugadores[1]==="piedra"){
+            victoriaPc();
             console.log('perdista');
         }
         if (jugadaJugadores[0 ]=== "tijera" && jugadaJugadores[1]==="papel"){
+            victoriaJugador();
             console.log('ganaste');
         }
     }
     const seleccionPapel = () =>{
         if (jugadaJugadores[0] === "papel" && jugadaJugadores[1]==="tijera"){
+            victoriaPc();
             console.log('perdista');
         }
         if (jugadaJugadores[0] === "papel" && jugadaJugadores[1]==="piedra"){
+            victoriaJugador();
             console.log('ganaste');
         }
     }
 
+    // inserta la img de la jugada del pc
     const imgPc = ()=>{
         const img =jugadorPc.querySelector("img")
-        console.log(img);
         img.src = `assets/img/${jugadaJugadores[1]}.png`;
+    }
+    
+    
+    const victoriaJugador = () => {
+        const victoriaP = jugador.querySelectorAll('span');
+        const derrotaP = pc.querySelectorAll('span');
+        contadorVictorias[0]++;
+        contadorDerrotas[1]++;
+        victoriaP[0].textContent = contadorVictorias[0];
+        derrotaP[1].textContent = contadorDerrotas[1];
+    }
+
+    const victoriaPc = () => {
+        const derrotaP = pc.querySelectorAll('span');
+        const victoriaP = jugador.querySelectorAll('span');
+        contadorVictorias[1]++;
+        contadorDerrotas[0]++;
+        victoriaP[1].textContent = contadorVictorias[1];
+        derrotaP[0].textContent = contadorDerrotas[0];
+    }
+
+    const reiniciarMarcadores = () =>{
+        const marcadorJugador = jugador.querySelectorAll('span');
+        const marcadorPc = pc.querySelectorAll('span');
+        marcadorJugador[0].textContent = 0;
+        marcadorJugador[1].textContent = 0;
+        marcadorPc[0].textContent = 0;
+        marcadorPc[1].textContent = 0;
+        contadorVictorias = [0,0]
+        contadorDerrotas = [0,0] 
     }
 
 })
