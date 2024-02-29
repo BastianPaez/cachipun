@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded',function(){
     // cargamos los eventlisteners
     cargarEventListeners();
     function cargarEventListeners(){
-        juego.addEventListener('click', btnIniciar);
+        iniciar.addEventListener('click', btnIniciar);
         jugadas.forEach(function(jugada) {
             jugada.addEventListener('click', btnJugadas);
         });
-        juego.addEventListener('click', btnBatalla);
+        batalla.addEventListener('click', btnBatalla);
     }
 
 
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded',function(){
         else {
             cantidadJuegos = parseInt(inputCantidad.value);
             removerError();
-            btnJuegoEstado(inputCantidad);
+            btnJuegoEstado();
             btnIniciarEstado(inputCantidad);
 
         }
@@ -137,6 +137,6 @@ document.addEventListener('DOMContentLoaded',function(){
     //
     function btnBatalla (e){
         e.preventDefault();
-        
+        console.log('ola');
     }
 })
