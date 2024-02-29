@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -9,45 +9,49 @@
     <title>Cachipun</title>
 </head>
 
-<body class="bg-secondary p-5">
-    <main class="container bg-danger p-3">
+<body class="bg-dark p-5 text-light">
+    <main class="bg-info">
         <h1 class="text-center">Cachipun</h1>
-        <section class="d-flex justify-content-around">
+        <section class="d-flex justify-content-around w-100">
             <div id="jugador" class="text-center">
                 <h2>Jugador</h2>
                 <img src="assets/img/jugador.png" alt="jugador">
-                <p class="fs-2">victorias - <span>0</span></p>
-                <p class="fs-2">Derrotas - <span>0</span></p>
+                <p class="fs-2 bg-success border mb-0">victorias - <span>0</span></p>
+                <p class="fs-2 bg-danger border">Derrotas - <span>0</span></p>
             </div>
 
             <div class="my-auto text-center">
                 <h2>VS</h2>
-                <img src="assets/img/vs.png" alt="versus">
-                <div class="input-group mb-3 mx-auto">
+                <button class="btn btn-secondary mb-3" type="submit"><img src="assets/img/vs.png" alt="versus"></button>
+                
 
-                    <input class="form-control text-center w-50" type="numer" placeholder="Cantidad de juegos" aria-label="default input">
-
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control text-center" placeholder="Cantidad de juegos" aria-describedby="button-addon2">
+                    <button class="btn btn-success" type="button" id="button-addon2">Iniciar</button>
                 </div>
+
+
+
             </div>
 
             <div id="PC" class="text-center">
                 <h2>PC</h2>
                 <img src="assets/img/pc.png" alt="pc">
-                <p class="fs-2">Victorias - <span>0</span></p>
-                <p class="fs-2">Derrotas - <span>0</span></p>
+                <p class="fs-2 bg-success border mb-0">Victorias - <span>0</span></p>
+                <p class="fs-2 bg-danger border">Derrotas - <span>0</span></p>
             </div>
         </section>
         
-        <section class="container text-center">
+        <section class="container-fluid text-center bg-primary">
             <h2>Selecciona tu jugada</h2>
-            <div id="seleccion row">
-                <div class="col border">
+            <div id="seleccion" class="row">
+                <div class="col-4 border border-dark bg-secondary-subtle">
                     <img src="assets/img/tijeras.png" alt="tijeras">
                 </div>
-                <div class="col border">
+                <div class="col-4 border border-dark bg-secondary-subtle">
                     <img src="assets/img/piedra.png" alt="piedra">
                 </div>
-                <div class="col border">
+                <div class="col-4 border border-dark bg-secondary-subtle">
                     <img src="assets/img/papel.png" alt="papel">
                 </div>
             </div>
