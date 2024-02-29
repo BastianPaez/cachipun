@@ -1,11 +1,14 @@
 document.addEventListener('DOMContentLoaded',function(){
     //declaramos las variables
+    const jugador = document.querySelector("#jugador");
+    const jugadorPc = document.querySelector("#pc");
     const juego = document.querySelector("#juego");
-    const iniciar = document.querySelector("#iniciar")
+    const iniciar = document.querySelector("#iniciar");
     const jugadas = document.querySelectorAll('#jugadas button');
-    const batalla = document.querySelector('#batalla')
+    const batalla = document.querySelector('#batalla');
     let cantidadJuegos = 0;
     let jugadaJugadores = ["",""]
+
 
     // cargamos los eventlisteners
     cargarEventListeners();
@@ -79,6 +82,8 @@ document.addEventListener('DOMContentLoaded',function(){
             inputCantidad.disabled = true;
             iniciarJugadas(btn);
         }else{
+            const img =jugador.querySelector("img")
+            img.src = `assets/img/jugador.png`;
             btn[1].classList.remove('btn-danger');
             btn[1].classList.add('btn-success');
             btn[1].textContent = 'Iniciar';
@@ -113,11 +118,19 @@ document.addEventListener('DOMContentLoaded',function(){
     function btnJugadas (e) {
         e.preventDefault()
         const jugadaSeleccionada = e.target ;
-        jugadaJugadores[0] = e.target.id;
+        guardarJugada(e.target.id);
         btnJugadaSeleccionada(jugadaSeleccionada)
-
+        
     }
     
+    //guardamos en memoria lo que selecciono el jugador
+    const guardarJugada = (jugada) =>{
+        jugadaJugadores[0] = "";
+        jugadaJugadores[0] = jugada;
+    }
+    
+    
+
     // funcion para resaltar el boton seleccionado
     const btnJugadaSeleccionada = (jugadaSeleccionada) =>{
         
@@ -130,13 +143,108 @@ document.addEventListener('DOMContentLoaded',function(){
         if (jugadaSeleccionada.classList.contains('btn-danger')){
             jugadaSeleccionada.classList.remove('btn-danger')
             jugadaSeleccionada.classList.add('btn-success')
+            imgJugador();
         }
     }
     
+    // inserta la img de jugador
+    const imgJugador = ()=>{
+        const img =jugador.querySelector("img")
+        img.src = `assets/img/${jugadaJugadores[0]}.png`;
+    }
 
-    //
+
+    // btn de inicio de batalla
     function btnBatalla (e){
         e.preventDefault();
-        console.log('ola');
+        if (jugadaJugadores[0] === ""){
+            errorJugada();
+        }else{
+            removerError();
+            turnoPc();
+            cachipun();
+        }
     }
+
+    // eleccion del pc
+    
+    const turnoPc = () => {
+        const pc = Math.floor(Math.random()*3)
+        
+        switch (pc){
+            case 0 :
+                jugadaJugadores[1] = "piedra";
+                break; 
+            case 1 :
+                jugadaJugadores[1] = "papel";
+                break;
+            case 2 :
+                jugadaJugadores[1] = "tijera";
+                break;
+        }
+        console.log(jugadaJugadores);
+    }
+
+    // error cuando el jugador quiere hacer el cachipun sin seleccionar una jugada
+    const errorJugada = () =>{
+        removerError();
+        const error = document.createElement('div');
+        error.innerHTML = '<p>Selecciona tu jugada antes de comenzar</p>';
+        error.classList.add('bg-danger', 'w-auto')
+        juego.appendChild(error)
+    }
+
+    // logica de la victoria
+    const cachipun = () => {
+        imgPc();
+        if (jugadaJugadores[0] === jugadaJugadores[1]){
+            console.log('empate');
+        }else {
+            switch (jugadaJugadores[0]){
+                case "piedra":
+                    seleccionPiedra();
+                    break;
+                case "tijera":
+                    seleccionTijera();
+                    break
+                case "papel":
+                    seleccionPapel();
+                    break
+            }
+            
+        }
+    }
+    
+    // seleccion de jugada logica
+    const seleccionPiedra = () =>{
+        if (jugadaJugadores[0] === "piedra" && jugadaJugadores[1]==="papel"){
+            console.log('perdiste');
+        }
+        if (jugadaJugadores[0] === "piedra" && jugadaJugadores[1]==="tijera"){
+            console.log('ganaste');
+        }
+    }
+    const seleccionTijera = () =>{
+        if (jugadaJugadores[0] === "tijera" && jugadaJugadores[1]==="piedra"){
+            console.log('perdista');
+        }
+        if (jugadaJugadores[0 ]=== "tijera" && jugadaJugadores[1]==="papel"){
+            console.log('ganaste');
+        }
+    }
+    const seleccionPapel = () =>{
+        if (jugadaJugadores[0] === "papel" && jugadaJugadores[1]==="tijera"){
+            console.log('perdista');
+        }
+        if (jugadaJugadores[0] === "papel" && jugadaJugadores[1]==="piedra"){
+            console.log('ganaste');
+        }
+    }
+
+    const imgPc = ()=>{
+        const img =jugadorPc.querySelector("img")
+        console.log(img);
+        img.src = `assets/img/${jugadaJugadores[1]}.png`;
+    }
+
 })
