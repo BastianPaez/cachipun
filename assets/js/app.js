@@ -1,12 +1,20 @@
 document.addEventListener('DOMContentLoaded',function(){
     //declaramos las variables
     const juego = document.querySelector("#juego");
+    const iniciar = document.querySelector("#iniciar")
+    const jugadas = document.querySelectorAll('#jugadas button');
+    const batalla = document.querySelector('#batalla')
     let cantidadJuegos = 0;
+    let jugadaJugadores = ["",""]
 
     // cargamos los eventlisteners
     cargarEventListeners();
     function cargarEventListeners(){
         juego.addEventListener('click', btnIniciar);
+        jugadas.forEach(function(jugada) {
+            jugada.addEventListener('click', btnJugadas);
+        });
+        juego.addEventListener('click', btnBatalla);
     }
 
 
@@ -32,6 +40,7 @@ document.addEventListener('DOMContentLoaded',function(){
             removerError();
             btnJuegoEstado(inputCantidad);
             btnIniciarEstado(inputCantidad);
+
         }
     }
     
@@ -63,12 +72,12 @@ document.addEventListener('DOMContentLoaded',function(){
     //Cambia las caracteristicas de el boton de inicio // reinicia los parametros
     const btnIniciarEstado = (inputCantidad) =>{
         const btn = juego.querySelectorAll('button');
-        console.log(btn[1].classList);
         if (btn[1].classList.contains('btn-success')){
             btn[1].classList.remove('btn-success');
             btn[1].classList.add('btn-danger');
             btn[1].textContent = 'Detener';
             inputCantidad.disabled = true;
+            iniciarJugadas(btn);
         }else{
             btn[1].classList.remove('btn-danger');
             btn[1].classList.add('btn-success');
@@ -76,7 +85,58 @@ document.addEventListener('DOMContentLoaded',function(){
             inputCantidad.disabled = false;
             inputCantidad.value = "";
             cantidadJuegos=0;
+            iniciarJugadas(btn);
         }
+    }
 
+    //activa los botones para elegir pidra papel o tijera
+    const iniciarJugadas = (btn) =>{
+        if (btn[1].classList.contains('btn-danger')){
+            for ( i = 0; i < jugadas.length ; i++){
+                jugadas[i].classList.remove('disabled');
+                jugadas[i].classList.remove('btn-secondary');
+                jugadas[i].classList.add('btn-danger');
+            }
+        }
+        if(btn[1].classList.contains('btn-success')){
+            for ( i = 0; i < jugadas.length ; i++){
+                jugadas[i].classList.add('disabled');
+                jugadas[i].classList.remove('btn-danger');
+                jugadas[i].classList.remove('btn-success');
+                jugadas[i].classList.add('btn-secondary');
+
+            }
+        }
+    }
+
+    // seleccion de botones piedra papel o tijera
+    function btnJugadas (e) {
+        e.preventDefault()
+        const jugadaSeleccionada = e.target ;
+        jugadaJugadores[0] = e.target.id;
+        btnJugadaSeleccionada(jugadaSeleccionada)
+
+    }
+    
+    // funcion para resaltar el boton seleccionado
+    const btnJugadaSeleccionada = (jugadaSeleccionada) =>{
+        
+        jugadas.forEach ((jugada)=>{
+            if (jugada.classList.contains('btn-success')){
+                jugada.classList.remove('btn-success')
+                jugada.classList.add('btn-danger')
+            }
+        })
+        if (jugadaSeleccionada.classList.contains('btn-danger')){
+            jugadaSeleccionada.classList.remove('btn-danger')
+            jugadaSeleccionada.classList.add('btn-success')
+        }
+    }
+    
+
+    //
+    function btnBatalla (e){
+        e.preventDefault();
+        
     }
 })

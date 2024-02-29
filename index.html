@@ -23,10 +23,10 @@
 
             <div id="juego" class="my-auto text-center">
                 <h2>VS</h2>
-                <button class="btn btn-secondary disabled mb-3" type="submit"><img src="assets/img/vs.png" alt="versus"></button>
+                <button class="btn btn-secondary disabled mb-3" type="submit" id="batalla"></button>
                 <div class="input-group mb-3">
                     <input type="number" class="form-control text-center" placeholder="Cantidad de juegos">
-                    <button class="btn btn-success" type="button" id="button-addon2">Iniciar</button>
+                    <button class="btn btn-success" type="button" id="iniciar">Iniciar</button>
                 </div>
             </div>
 
@@ -38,17 +38,17 @@
             </div>
         </section>
 
-        <section class="container-fluid text-center bg-primary">
+        <section class="container-fluid text-center bg-black" id="jugadas">
             <h2>Selecciona tu jugada</h2>
             <div id="seleccion" class="row">
-                <div class="col-4 border border-dark bg-secondary-subtle">
-                    <img src="assets/img/tijeras.png" alt="tijeras">
+                <div class="col-4 border border-dark rounded bg-secondary-subtle p-0">
+                    <button type="button" class="btn btn-secondary disabled" id="tijera"></button>
                 </div>
-                <div class="col-4 border border-dark bg-secondary-subtle">
-                    <img src="assets/img/piedra.png" alt="piedra">
+                <div class="col-4 border border-dark rounded bg-secondary-subtle p-0">
+                    <button type="button" class="btn btn-secondary disabled" id="piedra"></button>
                 </div>
-                <div class="col-4 border border-dark bg-secondary-subtle">
-                    <img src="assets/img/papel.png" alt="papel">
+                <div class="col-4 border border-dark rounded bg-secondary-subtle p-0">
+                    <button type="button" class="btn btn-secondary disabled" id="papel"></button>     
                 </div>
             </div>
 
