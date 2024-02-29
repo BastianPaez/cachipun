@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (contadorVictorias[0] > contadorVictorias[1]) {
             imgCambio(jugador, "ganador");
             juegoTerminado();
-        } else {
+        }if (contadorVictorias[0] < contadorVictorias[1]) {
             imgCambio(jugadorPc, "ganador")
             juegoTerminado();
         }
