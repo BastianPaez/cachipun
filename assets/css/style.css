@@ -8,7 +8,7 @@
 
 
 #tijera {
-    width: 412px;
+    width: 100%;
     height: 300px;
     background-image: url('../img/tijera.png');
     background-repeat: no-repeat;
@@ -16,7 +16,7 @@
 }
 
 #piedra {
-    width: 412px;
+    width: 100%;
     height: 300px;
     background-image: url('../img/piedra.png');
     background-repeat: no-repeat;
@@ -24,7 +24,7 @@
 }
 
 #papel {
-    width: 412px;
+    width: 100%;
     height: 300px;
     background-image: url('../img/papel.png');
     background-repeat: no-repeat;
